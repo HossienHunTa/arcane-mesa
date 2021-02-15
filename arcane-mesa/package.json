@@ -2,7 +2,7 @@
   "name": "arcane-mesa",
   "version": "1.0.0",
   "description": "User side website with vue.js for arcane-mesa.",
-  "author": "HossienHunta && Elyasalizade",
+  "author": "HossienHunta && Elyasalizadeh",
   "license": "MIT",
   "scripts": {
     "dev": "vite",
