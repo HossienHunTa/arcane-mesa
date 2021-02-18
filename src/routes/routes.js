@@ -7,22 +7,23 @@ import Typography from "@/pages/Typography.vue";
 import Icons from "@/pages/Icons.vue";
 import Maps from "@/pages/Maps.vue";
 import Notifications from "@/pages/Notifications.vue";
-import SignPage from "@/pages/Sign.vue";
+import SigninPage from "@/pages/Signin.vue";
+import SignupPage from "@/pages/Signup.vue"
 
 const children = [
     {
       path: "/dashboard",
-      name: "Dashboard",
+      name: "داشبورد",
       component:Dashboard
     },
     {
         path: "user",
-        name: "User Profile",
+        name: "پروفایل",
         component: UserProfile
       },
       {
         path: "table",
-        name: "Table List",
+        name: "محصولات",
         component: TableList
       },
       {
@@ -51,8 +52,9 @@ const children = [
   ]
 
 const routes = [
-  { path: "/", component: DashboardLayout, children: children, redirect:'/dashboard'},
-  { path: "/sign", component: SignPage},
+  { path: "/", component: DashboardLayout, children: children, name:"MainPage", redirect:'/dashboard'},
+  { path: "/login", component: SigninPage ,name: "Login"},
+  { path: "/register", component: SignupPage ,name: "Register"},
 ];
 
 export default routes;

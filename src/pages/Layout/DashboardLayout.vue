@@ -6,38 +6,33 @@
       :sidebar-item-color="sidebarBackground"
       :sidebar-background-image="sidebarBackgroundImage"
     >
-      <mobile-menu slot="content"></mobile-menu>
       <sidebar-link to="/dashboard">
         <md-icon>dashboard</md-icon>
-        <p>Dashboard</p>
+        <p>داشبورد</p>
       </sidebar-link>
       <sidebar-link to="/user">
         <md-icon>person</md-icon>
-        <p>User Profile</p>
+        <p>ویرایش مشخصات</p>
       </sidebar-link>
       <sidebar-link to="/table">
         <md-icon>content_paste</md-icon>
-        <p>Table list</p>
+        <p>لیست جدول</p>
       </sidebar-link>
       <sidebar-link to="/typography">
         <md-icon>library_books</md-icon>
-        <p>Typography</p>
+        <p>تایپوگرافی</p>
       </sidebar-link>
       <sidebar-link to="/icons">
         <md-icon>bubble_chart</md-icon>
-        <p>Icons</p>
+        <p>آیکون</p>
       </sidebar-link>
       <sidebar-link to="/maps">
         <md-icon>location_on</md-icon>
-        <p>Maps</p>
+        <p>نقشه </p>
       </sidebar-link>
       <sidebar-link to="/notifications">
         <md-icon>notifications</md-icon>
-        <p>Notifications</p>
-      </sidebar-link>
-      <sidebar-link to="/upgrade" class="active-pro">
-        <md-icon>unarchive</md-icon>
-        <p>Upgrade to PRO</p>
+        <p>اطلاعیه</p>
       </sidebar-link>
     </side-bar>
 
@@ -58,10 +53,11 @@
 </template>
 
 <script>
+import axios from 'axios';
+
 import TopNavbar from "./TopNavbar.vue";
 import ContentFooter from "./ContentFooter.vue";
 import DashboardContent from "./Content.vue";
-import MobileMenu from "@/pages/Layout/MobileMenu.vue";
 import FixedPlugin from "./Extra/FixedPlugin.vue";
 
 export default {
@@ -69,14 +65,24 @@ export default {
     TopNavbar,
     DashboardContent,
     ContentFooter,
-    MobileMenu,
     FixedPlugin
   },
   data() {
     return {
+      config: { headers: {Authorization: this.$cookies.get('token')}},
+      id: this.$cookies.get('id'),
       sidebarBackground: "green",
-      sidebarBackgroundImage: require("@/assets/img/sidebar-2.jpg")
+      sidebarBackgroundImage: require("@/assets/img/back.jpg")
     };
+  },
+  created() {
+      if(!this.id){
+        this.$router.push({name: 'Login'})
+      }else{
+        axios.get('https://arcane-mesa-44871.herokuapp.com/api/v1/users/'+this.id,this.config).then(response =>{
+          console.log(response.data)
+        })
+      }
   }
-};
+  };
 </script>

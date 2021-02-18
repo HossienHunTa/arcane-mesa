@@ -47,15 +47,15 @@ export default {
   props: {
     title: {
       type: String,
-      default: "Vue MD"
+      default: "لوگوی شما"
     },
     sidebarBackgroundImage: {
       type: String,
-      default: require("@/assets/img/sidebar-2.jpg")
+      default: require("@/assets/img/baccoffi.jpg")
     },
     imgLogo: {
       type: String,
-      default: require("@/assets/img/vue-logo.png")
+      default: require("@/assets/img/7568.jpg")
     },
     sidebarItemColor: {
       type: String,

@@ -1,5 +1,6 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
+import VueCookies from 'vue-cookies';
 import App from "./App";
 // router setup
 import routes from "./routes/routes";
@@ -23,6 +24,7 @@ const router = new VueRouter({
 Vue.prototype.$Chartist = Chartist;
 
 Vue.use(VueRouter);
+Vue.use(VueCookies);
 Vue.use(MaterialDashboard);
 Vue.use(GlobalComponents);
 Vue.use(GlobalDirectives);
