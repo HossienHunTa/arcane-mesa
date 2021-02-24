@@ -1,60 +1,44 @@
-import DashboardLayout from "@/pages/Layout/DashboardLayout.vue";
-
-import Dashboard from "@/pages/Dashboard.vue";
-import UserProfile from "@/pages/UserProfile.vue";
-import TableList from "@/pages/TableList.vue";
-import Typography from "@/pages/Typography.vue";
-import Icons from "@/pages/Icons.vue";
-import Maps from "@/pages/Maps.vue";
-import Notifications from "@/pages/Notifications.vue";
-import SigninPage from "@/pages/Signin.vue";
-import SignupPage from "@/pages/Signup.vue"
+import SigninPage from "../pages/Signin.vue";
+import SignupPage from "../pages/Signup.vue"
+import Dashboard from "../pages/Dashboard.vue"
+import Main from "../pages/dashboard/Main.vue"
+import Users from "../pages/dashboard/Users.vue"
+import User from "../pages/dashboard/User.vue"
+import Products from "../pages/dashboard/Products.vue"
+import Product from "../pages/dashboard/Product.vue"
 
 const children = [
     {
       path: "/dashboard",
-      name: "داشبورد",
-      component:Dashboard
+      name: "Main",
+      component: Main
     },
     {
-        path: "user",
-        name: "پروفایل",
-        component: UserProfile
-      },
-      {
-        path: "table",
-        name: "محصولات",
-        component: TableList
-      },
-      {
-        path: "typography",
-        name: "Typography",
-        component: Typography
-      },
-      {
-        path: "icons",
-        name: "Icons",
-        component: Icons
-      },
-      {
-        path: "maps",
-        name: "Maps",
-        meta: {
-          hideFooter: true
-        },
-        component: Maps
-      },
-      {
-        path: "notifications",
-        name: "Notifications",
-        component: Notifications
-      },
-  ]
+      path: "/users",
+      name: "Users",
+      component: Users
+    },
+    {
+      path: "/user",
+      name: "User",
+      component: User
+    },
+    {
+      path: "/products",
+      name: "Products",
+      component: Products
+    },
+    {
+      path: "/product",
+      name: "Product",
+      component: Product
+    }
+]
 
 const routes = [
-  { path: "/", component: DashboardLayout, children: children, name:"MainPage", redirect:'/dashboard'},
-  { path: "/login", component: SigninPage ,name: "Login"},
-  { path: "/register", component: SignupPage ,name: "Register"},
+  { path: "/", component: Dashboard, children: children, name:"Dashboard", redirect:'/dashboard'},
+  { path: "/login", component: SigninPage , name: "Login"},
+  { path: "/register", component: SignupPage, name: "Register"},
 ];
 
 export default routes;

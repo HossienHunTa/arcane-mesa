@@ -1,68 +1,67 @@
 <template>
-  	<form dir="rtl">
-    <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">ورود</h4>
-      </md-card-header>
-      <md-card-content>
-        <div class="md-layout">
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <md-input placeholder="شماره موبایل" v-model="phonenumber" type="text" maxlength="11" required></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field :md-toggle-password="false">
-              <md-input placeholder="رمز عبور" v-model="password" type="password" required></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-size-100 text-right">
-            <router-link to="/register" custom><md-button class="md-raised md-success">عضویت</md-button></router-link>
-            <md-button v-on:click="login()" class="md-raised md-success">ورود</md-button>
-          </div><br><br>
-            <h4 class="md-layout-item md-size-100 text-center">{{ error }}</h4>
-        </div>
-      </md-card-content>
-    </md-card>
-  </form>
-</template>
-<script>
-import axios from 'axios'
+  <div class="container backgroundpage">
+    <b-form @submit="onSubmit" v-if="show" class="formin">
+      <b-form-group class="text-right" id="gp_phoneNumber" label="شماره همراه" label-for="phoneNumber" description="شماره تلفن خود را به صورت 09123456789 وارد کنید.">
+        <b-form-input id="phoneNumber" v-model="form.phoneNumber" type="text" placeholder="09151234567" required> 	</b-form-input>
+      </b-form-group>
 
-export default {
-  name: "sigin",
-  data() {
-    return {
-      dataBackgroundColor: "green",
-      error:null,
-      res:null,
-      List:null,
-      phonenumber: null,
-      password: null,
-      confpassword: null,
-      id: this.$cookies.get('id'),
-    };
-  },
-  methods: {
-    login : function(){
-      axios.post('https://arcane-mesa-44871.herokuapp.com/api/v1/users/login',{
-            phoneNumber: this.phonenumber,
-            password: this.password,
-        }).then(response => {
-          if (response.status == 201){
-            this.$cookies.set("id",response.data.id,'6h')
-            this.$cookies.set("token",response.data.token,'6h')
-            this.$router.push({name: 'MainPage'})
-          }
-      }).catch(err => {
-        this.error = "Phone Number Or Password is not Work !!"  
-      })
-    }
-  },
-  created() {
-      if(this.id){
-        this.$router.push({name: 'MainPage'})
+      <b-form-group class="text-right" id="gp_password" label="رمز عبور" label-for="password">
+        <b-form-input id="password" type="password" v-model="form.password" placeholder="123456789" required></b-form-input>
+        <br>
+      </b-form-group>
+
+      <b-button class="ml-2" type="submit" variant="primary">ورود</b-button>
+      <router-link to="/register"><b-button class="mr-2" variant="danger">میخوام ثبت نام کنم</b-button></router-link>
+    </b-form>
+  </div>
+</template>
+
+<script>
+import axios from 'axios';
+
+  export default {
+    data() {
+      return {
+        form: {
+          phoneNumber: null,
+          password: null,
+        },
+        show: true,
+        url: 'https://arcane-mesa-44871.herokuapp.com/api/v1/'
+      }
+    },
+    methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        axios.post(this.url + 'users/login/', { phoneNumber: this.form.phoneNumber, password: this.form.password}).then(res => {
+            this.$cookies.set("id",res.data.id,'6h')
+            this.$cookies.set("token",res.data.token,'6h')
+            this.$router.push({name: 'Dashboard'})
+        }).catch(() => { alert('مشکل در ورود') });
+      },
+    },
+    created() {
+      if(this.$cookies.get('id') && this.$cookies.get('token')){
+        this.$router.push({name: 'Dashboard'})
       }
   }
-};
+  };
 </script>
+<style>
+.formin{
+  width: 50%;
+margin: 0 auto;
+font-family: "Vazir" !important;
+transform: translateY(50%);
+background: #fff;
+padding: 30px;
+border-radius: 16px;
+}
+
+.backgroundpage{
+  max-width:100% !important;
+  background:url("../assets/img/baccoffi.jpg");
+  background-size: cover;
+  height: auto;
+}
+</style>
