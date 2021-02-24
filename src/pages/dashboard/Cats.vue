@@ -1,8 +1,8 @@
 <template>
   <div class="container card mt-4">
     <div class="boxuser">
-      <router-link to="/product"><b-button id="btn" class="btn" variant="primary">محصول</b-button></router-link>
-      <router-link to="/products"><b-button id="btn" class="btn" variant="info">محصولات</b-button></router-link>
+      <router-link to="/cat"><b-button id="btn" class="btn" variant="primary">دسته</b-button></router-link>
+      <router-link to="/cats"><b-button id="btn" class="btn" variant="info">دسته بندی ها</b-button></router-link>
     </div>
     <b-form class="row mt-4 text-center partuser" v-if="show">
     <b-form-group class="col-sm-4 mr-3" id="gp_id" label="ایدی کاربر" label-for="id">

@@ -6,6 +6,8 @@ import Users from "../pages/dashboard/Users.vue"
 import User from "../pages/dashboard/User.vue"
 import Products from "../pages/dashboard/Products.vue"
 import Product from "../pages/dashboard/Product.vue"
+import Cats from "../pages/dashboard/Cats.vue"
+import Cat from "../pages/dashboard/Cat.vue"
 
 const children = [
     {
@@ -32,6 +34,16 @@ const children = [
       path: "/product",
       name: "Product",
       component: Product
+    },
+    {
+      path: "/cats",
+      name: "Cats",
+      component: Cats
+    },
+    {
+      path: "/cat",
+      name: "Cat",
+      component: Cat
     }
 ]
 

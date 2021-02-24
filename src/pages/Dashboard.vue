@@ -5,11 +5,18 @@
       <b-nav-item :class="{DashbordShow: active}"><b-link to="/dashboard" exact>داشبورد</b-link></b-nav-item>
       <b-nav-item><b-link to="/users" exact>کاربران</b-link></b-nav-item>
       <b-nav-item><b-link to="/products" exact>محصولات</b-link></b-nav-item>
-      <b-nav-item><b-link to="/" exact>دسته بندی</b-link></b-nav-item>
+      <b-nav-item><b-link to="/cats" exact>دسته بندی</b-link></b-nav-item>
 	<b-nav-item id="logout"><b-button v-on:click="logout(self,url)"> خروج</b-button></b-nav-item>
     </b-navbar-nav>
   </b-navbar>
   <router-view> </router-view>
+  <footer class="bg-dark share-network-list mt-3">
+  <ShareNetwork v-for="network in networks" :network="network.network" :key="network.network" :style="{backgroundColor: network.color}" :url="sharing.url" :title="sharing.title" :description="sharing.description" :quote="sharing.quote" :hashtags="sharing.hashtags" :twitterUser="sharing.twitterUser">
+        <i :class="network.icon"></i>
+        <span>{{ network.name }}</span>
+    </ShareNetwork><br>
+    <p class="text-center memo">© 2021 Copyright: <a><b-link to="/" exact> Arcane Mesa </b-link></a></p>
+  </footer>
 </div>
 </template>
 <script>
@@ -20,6 +27,18 @@ export default {
 	name: 'Dashboard',
 	data() {
 		return {
+			sharing: {
+				url: 'https://news.vuejs.org/issues/180',
+				title: 'Say hi to Vite! A brand new, extremely fast development setup for Vue.',
+				description: 'This week, I’d like to introduce you to "Vite", which means "Fast". It’s a brand new development setup created by Evan You.',
+				quote: 'The hot reload is so fast it\'s near instant. - Evan You',
+				hashtags: 'vuejs,vite,javascript',
+				twitterUser: 'youyuxi'
+			},
+			networks: [
+			{ network: 'telegram', name: 'Telegram', icon: 'fab fah fa-lg fa-telegram-plane', color: '#0088cc' },
+			{ network: 'email', name: 'Email', icon: 'far fah fa-lg fa-envelope', color: '#333333' }
+			],
 			show: false,
 			url: 'https://arcane-mesa-44871.herokuapp.com/api/v1/',
 			id: this.$cookies.get('id'),
@@ -58,7 +77,7 @@ export default {
 	}
 };
 </script>
-<style>
+<style>	
 #logout{
 	position:absolute;
 	left:0;
@@ -73,4 +92,35 @@ export default {
 	color:#fff !important;
 	text-decoration:none;
 }
+  .share-network-list {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: auto;
+    padding-top: 60px;
+  }
+  a[class^="share-network-"] {
+    flex: none;
+    color: #FFFFFF;
+    background-color: #333;
+    border-radius: 15px 5px 5px 15px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    align-content: center;
+    align-items: center;
+    cursor: pointer;
+    margin: 0 10px 10px 0;
+  }
+  a[class^="share-network-"] .fah {
+    background-color: rgba(0, 0, 0, .2);
+    padding: 10px;
+    flex: 0 1 auto;
+  }
+  a[class^="share-network-"] span {
+    padding: 0 10px;
+    flex: 1 1 0%;
+    font-weight: 200;
+  }
 </style>
