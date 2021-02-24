@@ -1,89 +1,66 @@
 <template>
-  	<form dir="rtl">
-    <md-card>
-      <md-card-header :data-background-color="dataBackgroundColor">
-        <h4 class="title">عضویت</h4>
-      </md-card-header>
+  <div class="container backgroundpage">
+    <b-form @submit="onSubmit" v-if="show" class="formup">
+      <b-form-group class="text-right" id="gp_phoneNumber" label="شماره همراه" label-for="phoneNumber" description="شماره تلفن خود را به صورت 09123456789 وارد کنید.">
+        <b-form-input id="phoneNumber" v-model="form.phoneNumber" type="text" placeholder="09151234567" required> 	</b-form-input>
+      </b-form-group>
 
-      <md-card-content>
-        <div class="md-layout">
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <md-input placeholder="نام" v-model="fristname" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field>
-              <md-input placeholder="نام خانوادگی" v-model="lastname" type="text"></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-100">
-            <md-field>
-              <md-input placeholder="شماره موبایل" v-model="phonenumber" type="text" maxlength="11" required></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field :md-toggle-password="false">
-              <md-input placeholder="رمز عبور" v-model="password" type="password" required></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-small-size-100 md-size-50">
-            <md-field :md-toggle-password="false">
-              <md-input placeholder="تکرار رمز عبور" v-model="confpassword" type="password" required></md-input>
-            </md-field>
-          </div>
-          <div class="md-layout-item md-size-100 text-right">
-            <router-link to="/login" custom><md-button class="md-raised md-success">ورود</md-button></router-link>
-            <md-button v-on:click="register()" class="md-raised md-success">ثبت نام</md-button>
-          </div>
-        </div>
-      </md-card-content>
-    </md-card>
-  </form>
+      <b-form-group class="text-right" id="gp_password" label="رمز عبور" label-for="password">
+        <b-form-input id="password" type="password" v-model="form.password" placeholder="123456789" required></b-form-input>
+        </b-form-group>
+
+      <b-form-group class="text-right" id="gp_password" label="تکرار رمز عبور" label-for="password">
+        <b-form-input id="confpassword" type="password" v-model="form.confpassword" placeholder="123456789" required></b-form-input>
+      </b-form-group>
+      
+
+      <b-button class="btn ml-2" type="submit" variant="primary">ثبت نام</b-button>
+      <router-link to="/login"><b-button class="mr-2" variant="danger">قبلا ثبت نام کردم</b-button></router-link>
+    </b-form>
+  </div>
 </template>
-<script>
-import axios from 'axios'
 
-export default {
-  name: "singup",
-  data() {
-    return {
-      dataBackgroundColor:"green",
-      error:null,
-      res:null,
-      List:null,
-      phonenumber: null,
-      password: null,
-      confpassword: null,
-      lastname: null,
-      fristname: null,
-      data_post: { phoneNumber: this.phonenumber, password: this.password, confirmPassword: this.confpassword },
-    };
-  },
-  methods: {
-    register : function(){
-      if (this.fristname != '')
-        { 
-          this.data_post = {
-            fullName: this.fristname + '' + this.lastname,
-            address: 'Soon',
-            phoneNumber: this.phonenumber,
-            password: this.password,
-            confirmPassword: this.confpassword
-          }
-        }
-      axios.post('https://arcane-mesa-44871.herokuapp.com/api/v1/users/register', this.data_post).then(response => {
-          if (response.status == 201){
-            this.$cookies.set("id",response.data)
-            this.$cookies.set("token",response.data.message)
-            console.log(this.$cookies.get("id"))
-            console.log(this.$cookies.get("token"))
-            this.$router.push({name: 'Login'})
-          }
-      }).catch(err => {
-        this.error = "Error To Connect Api :)"  
-      })
+<script>
+import axios from 'axios';
+
+  export default {
+    data() {
+      return {
+        form: {
+          phoneNumber: null,
+          password: '',
+          confpassword: '',
+        },
+        show: true,
+        url: 'https://arcane-mesa-44871.herokuapp.com/api/v1/'
+      }
+    },
+    methods: {
+      onSubmit(event) {
+        event.preventDefault()
+        axios.post(this.url + 'users/register/', { phoneNumber: this.form.phoneNumber, Password: this.form.password, confirmPassword: this.form.confPassword }).then(res => {
+          console.log(res)
+          this.$router.push({name: 'Login'})
+        }).catch(err => { console.log(err) });
+      },
     }
-  }
-};
+  };
 </script>
+<style>
+.formup{
+  width: 50%;
+margin: 0 auto;
+font-family: "Vazir" !important;
+transform: translateY(35%);
+background: #fff;
+padding: 30px;
+border-radius: 16px;
+}
+.backgroundpage{
+  max-width:100% !important;
+  background:url("../assets/img/baccoffi.jpg");
+  background-size: cover;
+  height: 43.8vw;
+
+}
+</style>

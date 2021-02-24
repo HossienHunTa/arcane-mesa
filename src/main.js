@@ -1,41 +1,25 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import VueCookies from 'vue-cookies';
-import App from "./App";
+import Vue from 'vue'
+import VueRouter from "vue-router"
+import VueCookies from 'vue-cookies'
+import App from './App.vue'
+
+// Import Bootstrap an BootstrapVue CSS files (order is important)
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+
 // router setup
-import routes from "./routes/routes";
+import routes from "./routes/routes"
+const router = new VueRouter({ routes })
 
-// Plugins
-import GlobalComponents from "./globalComponents";
-import GlobalDirectives from "./globalDirectives";
-import Notifications from "./components/NotificationPlugin";
+Vue.use(VueRouter)
+Vue.use(VueCookies)
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
 
-// MaterialDashboard plugin
-import MaterialDashboard from "./material-dashboard";
+Vue.config.productionTip = false
 
-import Chartist from "chartist";
-
-// configure router
-const router = new VueRouter({
-  routes, // short for routes: routes
-  linkExactActiveClass: "nav-item active"
-});
-
-Vue.prototype.$Chartist = Chartist;
-
-Vue.use(VueRouter);
-Vue.use(VueCookies);
-Vue.use(MaterialDashboard);
-Vue.use(GlobalComponents);
-Vue.use(GlobalDirectives);
-Vue.use(Notifications);
-
-/* eslint-disable no-new */
 new Vue({
-  el: "#app",
   render: h => h(App),
-  router,
-  data: {
-    Chartist: Chartist
-  }
-});
+  router
+}).$mount('#app')
