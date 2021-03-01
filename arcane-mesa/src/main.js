@@ -1,9 +1,7 @@
 import Vue from 'vue'
 import VueRouter from "vue-router"
 import VueCookies from 'vue-cookies'
-import VueSocialSharing from 'vue-social-sharing'
 import App from './App.vue'
-
 
 // Import Bootstrap an BootstrapVue CSS files (order is important)
 import 'bootstrap/dist/css/bootstrap.css'
@@ -18,7 +16,7 @@ Vue.use(VueRouter)
 Vue.use(VueCookies)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-Vue.use(VueSocialSharing);
+
 Vue.config.productionTip = false
 
 new Vue({

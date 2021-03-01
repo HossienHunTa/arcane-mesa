@@ -12,14 +12,12 @@
     "bootstrap": "^4.6.0",
     "bootstrap-vue": "^2.21.2",
     "core-js": "^3.6.5",
-    "form-data": "^4.0.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "portal-vue": "^2.1.7",
     "vue": "^2.6.11",
     "vue-cookies": "^1.7.4",
-    "vue-router": "^3.5.1",
-    "vue-social-sharing": "^3.0.5"
+    "vue-router": "^3.5.1"
   },
   "devDependencies": {
     "@vue/cli-plugin-babel": "~4.5.0",
